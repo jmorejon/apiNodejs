@@ -1,0 +1,48 @@
+<%- include("partials/header")  %>
+
+<div align="center" id="GraficoGoogleChart-ejemplo-1" style="width: 800px; height: 600px">
+</div>
+<div align="center" style="padding-top:15px"><a href="https://portal.ingenieria.usac.edu.gt/" title="Google Charts">www.ingenieria.usac.com</a></div>
+</body>
+
+
+<%- include("partials/footer")  %>
+<script>
+    function dividirCadena(cadenaADividir,separador) {
+    var arrayDeCadenas = cadenaADividir.split(separador);
+    
+
+   for (var i=0; i < arrayDeCadenas.length; i++) {
+      return arrayDeCadenas;
+   }
+}
+</script>
+<script>
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(dibujarGrafico);
+    edad = ["0-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91-100"];
+    cantidad ="<%=cantidad%>";
+    var cant = dividirCadena(cantidad,",")
+    function dibujarGrafico() {
+    // Tabla de datos: valores y etiquetas de la gráfica
+   
+    var data = new google.visualization.DataTable();
+        data.addColumn('string','Rango');
+        data.addColumn('number','Cantidad');
+        for(i = 0; i < edad.length; i++){
+         
+            data.addRow([edad[i] , Number(cant[i])]);   
+        } 
+        console.log(data)
+    var options = {
+    title: 'Grafico de Barras: Contagiados por Edades'
+    }
+    // Dibujar el gráfico
+    new google.visualization.ColumnChart(
+    //ColumnChart sería el tipo de gráfico a dibujar
+    document.getElementById('GraficoGoogleChart-ejemplo-1')
+    ).draw(data, options);
+    }
+    </script>
+
+<%- include("partials/script")  %>
