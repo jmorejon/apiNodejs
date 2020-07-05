@@ -1,0 +1,1 @@
+docker build -t wildering/nodejs-image-so1 .
